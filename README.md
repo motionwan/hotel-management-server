@@ -1,1 +1,1 @@
-# hotel-management-full
+# hotel-management-server
