@@ -1,0 +1,69 @@
+    @hostname = http://localhost:3002
+
+
+// create a new hotel
+###
+post {{hostname}}/users
+Content-Type: application/json
+
+{
+    "firstName": "Nurse",
+  "lastName": "Agbey",
+  "email": "benjamin100ist@gmail.com",
+  "password": "123456",
+  "role": "staff",
+  "hotelId": "6427564c83875d3af28ec71c"
+}
+
+###
+
+// get all userss
+get {{hostname}}/users
+###
+
+### 
+//update a users with id
+put {{hostname}}/users/6426c4a82c732ee350c9171e
+Content-Type: application/json
+
+{
+    "usersNumber":"2"
+}
+
+### 
+// delete a users
+delete {{hostname}}/users/6426c4a12c732ee350c9171c
+
+### 
+// link if a user forgets password
+post {{hostname}}/users/forgot-password
+Content-Type: application/json
+
+{
+    "email":"benjaminmordedzi@hotmail.com"
+}
+
+### 
+// link to reset user's password
+post {{hostname}}/users/reset-password/:token
+Content-Type: application/json
+
+{
+    "password":"new password"
+}
+
+###
+// login user
+post {{hostname}}/users/login
+Content-Type: application/json
+
+{
+    "email":"benjaminmordedzi@hotmail.com",
+    "password":"123456"
+}
+
+### logout
+
+post {{hostname}}/users/logout
+Content-Type: application/json
+

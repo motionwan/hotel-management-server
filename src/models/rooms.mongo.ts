@@ -9,7 +9,7 @@ export interface Room extends Document {
 }
 
 const roomSchema = new mongoose.Schema<Room>({
-  roomNumber: { type: String, required: true },
+  roomNumber: { type: String, unique: true, required: true },
   type: { type: String, required: true },
   amenities: [{ type: String }],
   hotel: { type: mongoose.Schema.Types.ObjectId, ref: 'Hotel', required: true },

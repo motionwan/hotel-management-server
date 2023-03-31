@@ -1,0 +1,39 @@
+    @hostname = http://localhost:3002
+
+
+// create a new hotel
+###
+post {{hostname}}/house-keeping
+Content-Type: application/json
+
+{
+   "room": "614e9a7c0d2f2f0a8c9c6f7b",
+  "date": "2023-03-31T11:27:53.000Z",
+  "description": "Cleaned and sanitized the room",
+  "createdBy": "614e9a7c0d2f2f0a8c9c6f7c"
+}
+
+###
+
+// get all house-keepings
+get {{hostname}}/house-keeping
+###
+
+###
+// get a single house-keeping record with id
+get {{hostname}}/house-keeping/6426ca48c409135adcd62830
+
+
+
+### 
+//update a house-keeping with id
+put {{hostname}}/house-keeping/6426ca48c409135adcd62830
+Content-Type: application/json
+
+{
+    "description":"Moped the floor and urinal"
+}
+
+### 
+// delete a house-keeping
+delete {{hostname}}/house-keeping/6426c4a12c732ee350c9171c

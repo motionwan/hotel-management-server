@@ -1,0 +1,33 @@
+    @hostname = http://localhost:3002
+
+
+// create a new hotel
+###
+post {{hostname}}/room
+Content-Type: application/json
+
+{
+    "roomNumber":"1",
+    "type":"executive",
+    "amenities":["Light","air condition", "tv"],
+   "hotel":"6426beedf177056313e5e64a"
+}
+
+###
+
+// get all rooms
+get {{hostname}}/room
+###
+
+### 
+//update a room with id
+put {{hostname}}/room/6426c4a82c732ee350c9171e
+Content-Type: application/json
+
+{
+    "roomNumber":"2"
+}
+
+### 
+// delete a room
+delete {{hostname}}/room/6426c4a12c732ee350c9171c

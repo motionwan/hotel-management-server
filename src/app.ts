@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
 
 // Load environment variables
@@ -18,6 +19,7 @@ app.use(cors(corsOption));
 
 // Parse JSON request bodies
 app.use(express.json());
+app.use(cookieParser());
 
 // Connect to MongoDB
 mongoose
@@ -28,5 +30,19 @@ mongoose
   .catch((err) => {
     console.error('Failed to connect to MongoDB', err);
   });
+
+// import routes
+
+import hotelRouter from './routers/Hotels/hotels.router';
+import roomRouter from './routers/Rooms/rooms.router';
+import houseKeepingRouter from './routers/houseKeeping/houseKeeping.router';
+import usersRouter from './routers/users/users.router';
+import refreshRouter from './routers/Refresh/refresh.router';
+
+app.use('/hotel', hotelRouter);
+app.use('/room', roomRouter);
+app.use('/house-keeping', houseKeepingRouter);
+app.use('/refresh', refreshRouter);
+app.use('/users', usersRouter);
 
 export default app;

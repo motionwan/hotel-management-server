@@ -1,0 +1,54 @@
+    @hostname = http://localhost:3002
+
+
+// create a new hotel
+###
+post {{hostname}}/hotel
+Content-Type: application/json
+
+{
+  "name": "Grand Hotel",
+  "address": "123 Main Street",
+  "city": "Tema",
+  "state": "Greater Accra",
+  "phone": "555-5555",
+  "email":"bmbclasses@gmail.com",
+  "country": "Ghana",
+  "settings": {
+    "host": "smtp.gmail.com",
+    "service": "gmail",
+    "emailPassword":"kfpynebxqoojflqt",
+    "hubtelApiSecret":"yueoww3",
+    "hubtelClientId":"dhfedsfe"
+  }
+}
+
+###
+
+// get all hotels
+get {{hostname}}/hotel
+###
+
+// get a single hotels
+get {{hostname}}/hotel/6426d1c9e8b1a81795a2d6f4
+###
+
+### 
+//update a hotel with id
+put {{hostname}}/hotel/6426d1c9e8b1a81795a2d6f4
+Content-Type: application/json
+
+{
+    "city":"Tema",
+    "country": "Ghana",
+    "state":"Greater Accra",
+ "settings": {
+    "hubtelApiSecret":"yjdfhewk",
+    "hubtelClientId":"12djddfdf",
+    "sendGridApiKey":"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",
+    "senderEmail":"bmbschool@gmail.com"
+  }}
+
+### 
+// delete a hotel
+delete {{hostname}}/hotel/6426beedf177056313e5e64a
