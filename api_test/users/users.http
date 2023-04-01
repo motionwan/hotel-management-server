@@ -45,11 +45,11 @@ Content-Type: application/json
 
 ### 
 // link to reset user's password
-post {{hostname}}/users/reset-password/:token
+post {{hostname}}/users/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbmphbWlubW9yZGVkemlAaG90bWFpbC5jb20iLCJpYXQiOjE2ODAzMDgyNjgsImV4cCI6MTY4MDMxMTg2OH0.h-1ZvwYdgBo9hRUImlHbOPJRjeXWz0_53A5cf9f-bT8
 Content-Type: application/json
 
 {
-    "password":"new password"
+    "password":"1234567"
 }
 
 ###
@@ -59,7 +59,7 @@ Content-Type: application/json
 
 {
     "email":"benjaminmordedzi@hotmail.com",
-    "password":"123456"
+    "password":"1234567"
 }
 
 ### logout

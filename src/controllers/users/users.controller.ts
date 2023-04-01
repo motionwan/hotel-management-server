@@ -39,20 +39,13 @@ class UserController {
 
       //find user's hotel an pull out the settings
       const hotel = await Hotel.findById(user.hotelId);
-      console.log(
-        hotel!.settings.host,
-        hotel!.email,
-        hotel!.settings.service,
-        hotel!.email,
-        hotel!.settings.emailPassword
-      );
 
       // send verification email to the new user
       const token = jwt.sign({ email }, process.env.ACCESS_TOKEN as string, {
         expiresIn: '1h',
       });
       const verificationLink = `http://localhost:3000/users/verify/${token}`;
-      console.log(token);
+
       sendMail(
         hotel!.settings.host,
         hotel!.email,
@@ -66,14 +59,6 @@ class UserController {
       if (!sendMail) {
         res.status(400).json({ message: 'Email not sent' });
       }
-      //   const mailMsg = {
-      //     to: user.email,
-      //     from: 'noreply@gmail.com',
-      //     subject: `Verify your email`,
-      //     html: `<p>Hi ${user.lastName}, </p><p>Thank you for signing up for ${hotel?.name}. Please click on the button below to confirm your email address and activate your account.</p><a href=${verificationLink} style="background-color: green; color: white; padding: 10px; text-decoration: none;">Confirm Registration</a><p>If you did not request this, please ignore this email.</p><p>Regards,</p><p>${hotel?.name} Team</p>`,
-      //     replyTo: 'no-reply@yourhotel.com',
-      //   };
-      //   //await sgMail.send(mailMsg);
 
       res
         .status(201)
@@ -121,20 +106,20 @@ class UserController {
         expiresIn: '1h',
       });
       const resetPasswordLink = `http://localhost:3000/users/reset-password/${token}`;
-
+      console.log(token);
       //find user's hotel an pull out the settings
       const hotel = await Hotel.findById(user.hotelId);
 
-      // send password reset email to the user
-      //   sgMail.setApiKey(hotel?.settings.sendGridApiKey as string);
-      //   const mailMsg = {
-      //     to: user.email,
-      //     from: 'noreply@gmail.com',
-      //     subject: `Reset your password`,
-      //     html: `<p>Hi ${user.lastName}, </p><p>You have requested to reset your password for ${hotel?.name}. Please click on the button below to reset your password.</p><a href=${resetPasswordLink} style="background-color: green; color: white; padding: 10px; text-decoration: none;">Reset Password</a><p>If you did not request this, please ignore this email.</p><p>Regards,</p><p>${hotel?.name} Team</p>`,
-      //     replyTo: 'no-reply@yourhotel.com',
-      //   };
-      //   await sgMail.send(mailMsg);
+      sendMail(
+        hotel!.settings.host,
+        hotel!.email,
+        hotel!.settings.service,
+        hotel!.email,
+        hotel!.settings.emailPassword,
+        user.email,
+        'Please verify your email address',
+        `Hi ${user.lastName}  ',You have requested to reset your password for ${hotel?.name}. Please click on the button below to reset your password.</p><a href=${resetPasswordLink} style="background-color: green; color: white; padding: 10px; text-decoration: none;">Reset Password</a><p>If you did not request this, please ignore this email.</p><p>Regards,</p><p>${hotel?.name} Team</p>`
+      );
 
       res
         .status(200)
