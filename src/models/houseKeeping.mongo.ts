@@ -7,16 +7,19 @@ export interface Housekeeping extends Document {
   createdBy: mongoose.Types.ObjectId;
 }
 
-const housekeepingSchema = new mongoose.Schema<Housekeeping>({
-  room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room', required: true },
-  date: { type: Date, required: true },
-  description: { type: String, required: true },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Staff',
-    required: true,
+const housekeepingSchema = new mongoose.Schema<Housekeeping>(
+  {
+    room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room', required: true },
+    date: { type: Date, required: true },
+    description: { type: String, required: true },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Staff',
+      required: true,
+    },
   },
-});
+  { timestamps: true }
+);
 
 const HousekeepingModel = mongoose.model<Housekeeping>(
   'Housekeeping',

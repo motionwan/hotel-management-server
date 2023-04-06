@@ -7,26 +7,29 @@ export interface IRoomAccess extends Document {
   checkOut: Date | null;
 }
 
-const RoomAccessSchema = new mongoose.Schema({
-  roomId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Room',
-    required: true,
+const RoomAccessSchema = new mongoose.Schema(
+  {
+    roomId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Room',
+      required: true,
+    },
+    userEmail: {
+      type: String,
+      required: true,
+    },
+    checkIn: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
+    checkOut: {
+      type: Date,
+      default: null,
+    },
   },
-  userEmail: {
-    type: String,
-    required: true,
-  },
-  checkIn: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-  checkOut: {
-    type: Date,
-    default: null,
-  },
-});
+  { timestamps: true }
+);
 
 const RoomAccess = mongoose.model<IRoomAccess>('RoomAccess', RoomAccessSchema);
 

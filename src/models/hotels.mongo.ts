@@ -6,9 +6,11 @@ export interface Hotel extends Document {
   city: string;
   state: string;
   phone: string;
+  logo: string;
   email: string;
   country: string;
   createdAt: Date;
+  timestamps: Date;
   settings: {
     host: string;
     service: string;
@@ -19,25 +21,29 @@ export interface Hotel extends Document {
   };
 }
 
-const hotelSchema = new mongoose.Schema<Hotel>({
-  name: { type: String, required: true },
-  address: { type: String, required: true },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
-  phone: { type: String, required: true },
-  email: { type: String, required: true, lowercase: true, unique: true },
-  country: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  settings: {
-    host: { type: String, required: true },
-    service: { type: String, required: true },
-    senderEmail: { type: String },
-    emailPassword: { type: String, required: true },
-    sendGridApiKey: { type: String },
-    hubtelApiSecret: { type: String },
-    hubtelClientId: { type: String },
+const hotelSchema = new mongoose.Schema<Hotel>(
+  {
+    name: { type: String, required: true },
+    address: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    phone: { type: String, required: true },
+    logo: { type: String },
+    email: { type: String, required: true, lowercase: true, unique: true },
+    country: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
+    settings: {
+      host: { type: String, required: true },
+      service: { type: String, required: true },
+      senderEmail: { type: String },
+      emailPassword: { type: String, required: true },
+      sendGridApiKey: { type: String },
+      hubtelApiSecret: { type: String },
+      hubtelClientId: { type: String },
+    },
   },
-});
+  { timestamps: true }
+);
 
 const HotelModel = mongoose.model<Hotel>('Hotel', hotelSchema);
 
