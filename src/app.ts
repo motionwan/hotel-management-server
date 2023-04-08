@@ -9,17 +9,22 @@ config();
 
 // Create Express app
 const app = express();
+
+//'http://localhost:3000',
+
 const corsOption = {
   credentials: true,
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3000', 'https://127.0.0.1:3000'],
 };
 
 // Enable CORS
 app.use(cors(corsOption));
+//app.use(cors());
 
 // Parse JSON request bodies
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 // Connect to MongoDB
 mongoose

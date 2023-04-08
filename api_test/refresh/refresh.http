@@ -1,3 +1,4 @@
-    @hostname = http://localhost:3002
+ @hostname = http://localhost:3002
 
+###
 get {{hostname}}/refresh

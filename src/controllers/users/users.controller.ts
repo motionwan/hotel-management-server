@@ -174,13 +174,13 @@ class UserController {
       }
 
       // create a JWT token with user's email and user id
-      const token = jwt.sign(
-        { email: user.email, userId: user._id },
-        process.env.ACCESS_TOKEN as string,
-        {
-          expiresIn: '10m',
-        }
-      );
+      // const token = jwt.sign(
+      //   { email: user.email, userId: user._id },
+      //   process.env.ACCESS_TOKEN as string,
+      //   {
+      //     expiresIn: '10m',
+      //   }
+      // );
 
       const accessToken = jwt.sign(
         {
@@ -198,9 +198,11 @@ class UserController {
       );
 
       user.refreshToken = refreshToken;
+      //user.accessToken = accessToken;
 
       await user.save();
       // send token as a cookie with http only
+
       res.cookie('jwt', refreshToken, {
         httpOnly: true,
         sameSite: 'lax',
@@ -215,6 +217,7 @@ class UserController {
         email: user.email,
         role: user.role,
         hotelId: user.hotelId,
+        userId: user._id,
       });
     } catch (err: any) {
       res.status(500).json({ message: err.message });
@@ -234,7 +237,7 @@ class UserController {
         res.clearCookie('jwt', {
           httpOnly: true,
           sameSite: 'none',
-          secure: true,
+          secure: false,
         });
         return res.sendStatus(204);
       }
@@ -245,7 +248,7 @@ class UserController {
       res.clearCookie('jwt', {
         httpOnly: true,
         sameSite: 'none',
-        secure: true,
+        secure: false,
       });
       res.sendStatus(204);
     } catch (err: any) {

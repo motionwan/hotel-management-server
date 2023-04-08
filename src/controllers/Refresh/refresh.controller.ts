@@ -37,6 +37,7 @@ class Refresh {
             email: user?.email,
             role: user?.role,
             hotelId: user?.hotelId,
+            userId: user?._id,
           });
         }
       );

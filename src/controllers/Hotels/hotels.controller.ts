@@ -7,6 +7,13 @@ class HotelController {
     try {
       const { name, address, city, state, phone, email, country, settings } =
         req.body;
+
+      let logo: string = '';
+
+      if (req.file) {
+        logo = req.file.path;
+      }
+
       const hotel = new HotelModel({
         name,
         address,
@@ -16,7 +23,9 @@ class HotelController {
         email,
         country,
         settings,
+        logo,
       });
+
       await hotel.save();
       res.status(201).json({ message: 'Hotel created', hotel });
     } catch (err: any) {
@@ -39,34 +48,34 @@ class HotelController {
   }
 
   // Update a single hotel by id
+  // Update a single hotel by id
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
       const { name, address, city, state, phone, email, country, settings } =
         req.body;
-      const hotel = await HotelModel.findByIdAndUpdate(
-        id,
-        {
-          name,
-          address,
-          city,
-          state,
-          phone,
-          email,
-          country,
-          $set: {
-            'settings.senderEmail': settings.senderEmail,
-            'settings.sendGridApiKey': settings.sendGridApiKey,
-            'settings.hubtelApiSecret': settings.hubtelApiSecret,
-            'settings.hubtelClientId': settings.hubtelClientId,
-          },
-        },
-        { new: true }
-      );
+      const hotel = await HotelModel.findById(id);
       if (!hotel) {
         return res.status(404).json({ message: 'Hotel not found' });
       }
-      res.status(200).json({ message: 'Hotel updated', hotel });
+      const updateFields: any = {
+        name,
+        address,
+        city,
+        state,
+        phone,
+        email,
+        country,
+        'settings.senderEmail': settings.senderEmail,
+        'settings.sendGridApiKey': settings.sendGridApiKey,
+        'settings.hubtelApiSecret': settings.hubtelApiSecret,
+        'settings.hubtelClientId': settings.hubtelClientId,
+      };
+      if (req.file) {
+        updateFields.logo = req.file.path;
+      }
+      const updatedHotel = await hotel.updateOne(updateFields);
+      res.status(200).json({ message: 'Hotel updated', hotel: updatedHotel });
     } catch (err: any) {
       res.status(500).json({ message: err.message });
     }
