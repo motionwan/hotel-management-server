@@ -29,6 +29,7 @@ class HotelController {
       await hotel.save();
       res.status(201).json({ message: 'Hotel created', hotel });
     } catch (err: any) {
+      console.log(err);
       res.status(500).json({ message: err.message });
     }
   }

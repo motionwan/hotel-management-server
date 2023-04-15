@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import HotelController from '../../controllers/Hotels/hotels.controller';
+import upload from '../../middleware/upload';
 
 const router = Router();
 
 // Create a new hotel
-router.post('/', HotelController.create);
+router.post('/', upload.single('logo'), HotelController.create);
 
 // Read a single hotel by id
 router.get('/:id', HotelController.read);

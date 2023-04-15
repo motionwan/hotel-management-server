@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema<User>({
   refreshToken: { type: String },
   role: {
     type: String,
-    enum: ['guest', 'staff', 'admin', 'superadmin'],
+    enum: ['guest', 'staff', 'admin', 'super-admin'],
     default: 'guest',
   },
   hotelId: {

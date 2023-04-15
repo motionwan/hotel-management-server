@@ -23,7 +23,7 @@ export interface Hotel extends Document {
 
 const hotelSchema = new mongoose.Schema<Hotel>(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     address: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },
@@ -33,10 +33,10 @@ const hotelSchema = new mongoose.Schema<Hotel>(
     country: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     settings: {
-      host: { type: String, required: true },
-      service: { type: String, required: true },
+      host: { type: String },
+      service: { type: String },
       senderEmail: { type: String },
-      emailPassword: { type: String, required: true },
+      emailPassword: { type: String },
       sendGridApiKey: { type: String },
       hubtelApiSecret: { type: String },
       hubtelClientId: { type: String },
