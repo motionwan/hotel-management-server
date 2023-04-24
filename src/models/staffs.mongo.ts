@@ -6,7 +6,15 @@ interface Staff extends Document {
   email: string;
   password: string;
   hotel: Hotel['_id'];
-  role: 'admin' | 'staff';
+  role:
+    | 'admin'
+    | 'staff'
+    | 'super-admin'
+    | 'house-keeper'
+    | 'facility-manager'
+    | 'store-manager'
+    | 'restaurant-manager'
+    | 'accountant';
 }
 
 const staffSchema = new mongoose.Schema<Staff>({
@@ -14,7 +22,20 @@ const staffSchema = new mongoose.Schema<Staff>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   hotel: { type: mongoose.Schema.Types.ObjectId, ref: 'Hotel', required: true },
-  role: { type: String, enum: ['admin', 'staff'], default: 'staff' },
+  role: {
+    type: String,
+    enum: [
+      'super-admin',
+      'admin',
+      'house-keeper',
+      'facility-manager',
+      'accountant',
+      'staff',
+      'restaurant-manager',
+      'store-manager',
+    ],
+    default: 'staff',
+  },
 });
 
 const StaffModel = mongoose.model<Staff>('Staff', staffSchema);

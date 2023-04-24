@@ -4,12 +4,12 @@ import RoomModel from '../../models/rooms.mongo';
 class RoomController {
   async create(req: Request, res: Response) {
     try {
-      const { roomNumber, type, amenities, hotel } = req.body;
+      const { roomNumber, type, amenities, hotelId } = req.body;
       const room = new RoomModel({
         roomNumber,
         type,
         amenities,
-        hotel,
+        hotelId,
       });
       if (req.files) {
         const roomPics = (req.files as Express.Multer.File[]).map(
@@ -36,10 +36,10 @@ class RoomController {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params; // room id
-      const { roomNumber, type, amenities, hotel } = req.body;
+      const { roomNumber, type, amenities, hotelId } = req.body;
       const updatedRoom = await RoomModel.findByIdAndUpdate(
         id,
-        { roomNumber, type, amenities, hotel },
+        { roomNumber, type, amenities, hotelId },
         { new: true }
       );
 

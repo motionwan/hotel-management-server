@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import User from '../../models/user.mongo';
+import User from '../../models/customers.mongo';
 import Hotel from '../../models/hotels.mongo';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import sendMail from '../../utils/email';
-import UserModel from '../../models/user.mongo';
+import UserModel from '../../models/customers.mongo';
 
 interface TokenPayload extends JwtPayload {
   email: string;

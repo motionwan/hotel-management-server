@@ -23,8 +23,13 @@ const storage = multer.diskStorage({
   },
 });
 
+const limits = {
+  fileSize: 10 * 1024 * 1024, // 10 MB in bytes
+};
+
 const upload: Multer = multer({
   storage: storage,
+  limits: limits,
   fileFilter: (req, file, cb) => {
     if (file.mimetype.startsWith('image/')) {
       cb(null, true);
@@ -34,6 +39,6 @@ const upload: Multer = multer({
   },
 });
 
-const uploadMiddleware: RequestHandler = upload.array('images');
+const uploadRoomPicsMiddleware: RequestHandler = upload.array('roomPics');
 
-export default uploadMiddleware;
+export default uploadRoomPicsMiddleware;

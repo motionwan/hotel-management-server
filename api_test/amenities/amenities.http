@@ -1,0 +1,13 @@
+    @hostname = http://localhost:3002
+
+//create amenity
+
+#####
+post {{hostname}}/amenity
+Content-Type: application/json
+
+{
+    "name":"AC",
+    "hotelId":"6427564c83875d3af28ec71c",
+    "roomId":"6426c4522c732ee350c91714"
+}

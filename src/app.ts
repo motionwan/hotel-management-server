@@ -43,11 +43,13 @@ import roomRouter from './routers/Rooms/rooms.router';
 import houseKeepingRouter from './routers/houseKeeping/houseKeeping.router';
 import usersRouter from './routers/users/users.router';
 import refreshRouter from './routers/Refresh/refresh.router';
+import amenityRouter from './routers/Amenities/amenities.router';
 
 app.use('/hotel', hotelRouter);
 app.use('/room', roomRouter);
 app.use('/house-keeping', houseKeepingRouter);
 app.use('/refresh', refreshRouter);
 app.use('/users', usersRouter);
+app.use('/amenity', amenityRouter);
 
 export default app;

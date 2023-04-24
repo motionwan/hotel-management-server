@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import User from '../../models/user.mongo';
+import User from '../../models/customers.mongo';
 
 class Refresh {
   async refresh(req: Request, res: Response) {
