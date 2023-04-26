@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 import { Room } from './rooms.mongo';
-import { Customer } from './customers.mongo';
+import { Customer } from './users.mongo';
 
 export interface Booking extends Document {
   roomId: Room['_id'];
@@ -12,7 +12,7 @@ export interface Booking extends Document {
   totalPrice: number;
 }
 
-const userSchema = new mongoose.Schema<Booking>({
+const bookingSchema = new mongoose.Schema<Booking>({
   roomId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Room' },
   checkInDate: { type: Date, required: true },
   checkOutDate: { type: Date, required: true },
@@ -21,6 +21,6 @@ const userSchema = new mongoose.Schema<Booking>({
   totalPrice: { type: Number },
 });
 
-const UserModel = mongoose.model<Booking>('User', userSchema);
+const bookingModel = mongoose.model<Booking>('User', bookingSchema);
 
-export default UserModel;
+export default bookingModel;

@@ -3,15 +3,19 @@ import { Hotel } from './hotels.mongo';
 import { Amenity } from './amenities.mongo';
 
 export interface Room extends Document {
-  roomNumber: String;
+  roomNumber: string;
   type: string;
-  amenities: Amenity['_id'];
+  price: number;
+  capacity: number;
+  amenities: Amenity['_id'][];
   roomPics: string[];
   hotelId: Hotel['_id'];
 }
 
 const roomSchema = new mongoose.Schema<Room>({
   roomNumber: { type: String, unique: true, required: true },
+  price: { type: Number, required: true },
+  capacity: { type: Number, required: true },
   type: { type: String, required: true },
   amenities: [
     { type: mongoose.Schema.Types.ObjectId, ref: 'Amenity', required: true },

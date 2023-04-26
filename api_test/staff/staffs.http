@@ -1,0 +1,69 @@
+    @hostname = http://localhost:3002
+
+
+// create a new staffs
+###
+post {{hostname}}/staffs
+Content-Type: application/json
+
+{
+    "firstName": "Nurse",
+  "lastName": "Agbey",
+  "email": "benjamin100ist@gmail.com",
+  "password": "123456",
+  "role": "super-admin",
+  "hotelId": "6427564c83875d3af28ec71c"
+}
+
+###
+
+// get all staffss
+get {{hostname}}/staffs
+###
+
+### 
+//update a staffs with id
+put {{hostname}}/staffs/6426c4a82c732ee350c9171e
+Content-Type: application/json
+
+{
+    "staffsNumber":"2"
+}
+
+### 
+// delete a staffs
+delete {{hostname}}/staffs/6426c4a12c732ee350c9171c
+
+### 
+// link if a user forgets password
+post {{hostname}}/staffs/forgot-password
+Content-Type: application/json
+
+{
+    "email":"benjaminmordedzi@hotmail.com"
+}
+
+### 
+// link to reset user's password
+post {{hostname}}/staffs/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbmphbWlubW9yZGVkemlAaG90bWFpbC5jb20iLCJpYXQiOjE2ODAzMDgyNjgsImV4cCI6MTY4MDMxMTg2OH0.h-1ZvwYdgBo9hRUImlHbOPJRjeXWz0_53A5cf9f-bT8
+Content-Type: application/json
+
+{
+    "password":"1234567"
+}
+
+###
+// login user
+post {{hostname}}/staffs/login
+Content-Type: application/json
+
+{
+    "email":"benjamin100ist@gmail.com",
+    "password":"1234567"
+}
+
+### logout
+
+post {{hostname}}/staffs/logout
+Content-Type: application/json
+

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import User from '../../models/users.mongo';
+import Customer from '../../models/users.mongo';
 
-class Refresh {
+class CustomerRefresh {
   async refresh(req: Request, res: Response) {
     try {
       const cookies = req.cookies;
@@ -11,7 +11,7 @@ class Refresh {
 
       const refreshToken = cookies.jwt;
 
-      const user = await User.findOne({ refreshToken: refreshToken });
+      const user = await Customer.findOne({ refreshToken: refreshToken });
 
       if (!user)
         return res.status(403).json({ message: 'User not found try again' });
@@ -48,4 +48,4 @@ class Refresh {
   }
 }
 
-export default new Refresh();
+export default new CustomerRefresh();

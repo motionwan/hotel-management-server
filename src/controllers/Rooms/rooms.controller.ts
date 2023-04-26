@@ -1,15 +1,20 @@
 import { Request, Response } from 'express';
-import RoomModel from '../../models/rooms.mongo';
+import RoomModel, { Room } from '../../models/rooms.mongo';
+import mongoose from 'mongoose';
+const ObjectId = mongoose.Types.ObjectId;
 
 class RoomController {
   async create(req: Request, res: Response) {
     try {
-      const { roomNumber, type, amenities, hotelId } = req.body;
+      const { roomNumber, price, capacity, amenities, type, hotelId } =
+        req.body;
       const room = new RoomModel({
         roomNumber,
         type,
         amenities,
         hotelId,
+        price,
+        capacity,
       });
       if (req.files) {
         const roomPics = (req.files as Express.Multer.File[]).map(
@@ -20,6 +25,7 @@ class RoomController {
       await room.save();
       res.status(201).send(room);
     } catch (err: any) {
+      console.log(err);
       res.status(500).send({ message: err.message });
     }
   }
@@ -36,10 +42,11 @@ class RoomController {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params; // room id
-      const { roomNumber, type, amenities, hotelId } = req.body;
+      const { roomNumber, type, amenities, hotelId, price, capacity } =
+        req.body;
       const updatedRoom = await RoomModel.findByIdAndUpdate(
         id,
-        { roomNumber, type, amenities, hotelId },
+        { roomNumber, type, amenities, hotelId, price, capacity },
         { new: true }
       );
 

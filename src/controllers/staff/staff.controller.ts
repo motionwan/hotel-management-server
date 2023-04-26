@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import User from '../../models/users.mongo';
+import Staff from '../../models/staffs.mongo';
 import Hotel from '../../models/hotels.mongo';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import sendMail from '../../utils/email';
@@ -9,13 +9,13 @@ interface TokenPayload extends JwtPayload {
   email: string;
 }
 
-class UserController {
+class StaffController {
   async register(req: Request, res: Response) {
     try {
       const { firstName, lastName, email, password, role, hotelId } = req.body;
 
       // check if user is already registered
-      const userExists = await User.findOne({ email });
+      const userExists = await Staff.findOne({ email });
       if (userExists) {
         return res.status(401).json({ message: 'User already registered' });
       }
@@ -25,7 +25,7 @@ class UserController {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       // now create the new user
-      const user = new User({
+      const user = new Staff({
         firstName,
         lastName,
         email,
@@ -75,7 +75,7 @@ class UserController {
         process.env.ACCESS_TOKEN as string
       ) as TokenPayload;
       const email = decoded?.email;
-      const user = await User.findOneAndUpdate({ email }, { verified: true });
+      const user = await Staff.findOneAndUpdate({ email }, { verified: true });
       if (!user) {
         res.status(404).json({
           message: 'User not found',
@@ -93,7 +93,7 @@ class UserController {
       const { email } = req.body;
 
       // check if user is already registered
-      const user = await User.findOne({ email });
+      const user = await Staff.findOne({ email });
       if (!user) {
         return res.status(404).json({
           message: 'User not found Please check your email and try again',
@@ -138,7 +138,7 @@ class UserController {
         process.env.ACCESS_TOKEN as string
       ) as TokenPayload;
       const email = decoded?.email;
-      const user = await User.findOne({ email });
+      const user = await Staff.findOne({ email });
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
@@ -148,7 +148,7 @@ class UserController {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       // update user's password
-      await User.findOneAndUpdate({ email }, { password: hashedPassword });
+      await Staff.findOneAndUpdate({ email }, { password: hashedPassword });
 
       res.status(200).json({ message: 'Password reset successful' });
     } catch (err: any) {
@@ -161,7 +161,7 @@ class UserController {
       const { email, password } = req.body;
 
       // check if user with email exists
-      const user = await User.findOne({ email });
+      const user = await Staff.findOne({ email });
       if (!user) {
         return res.status(401).json({ message: 'Invalid email or password' });
       }
@@ -231,7 +231,7 @@ class UserController {
       const refreshToken = cookies.jwt;
 
       // is refresh token in the db
-      const foundUser = await User.findOne({ refreshToken });
+      const foundUser = await Staff.findOne({ refreshToken });
       if (!foundUser) {
         res.clearCookie('jwt', {
           httpOnly: true,
@@ -255,4 +255,4 @@ class UserController {
     }
   }
 }
-export default new UserController();
+export default new StaffController();

@@ -44,6 +44,7 @@ import houseKeepingRouter from './routers/houseKeeping/houseKeeping.router';
 import usersRouter from './routers/users/users.router';
 import refreshRouter from './routers/Refresh/refresh.router';
 import amenityRouter from './routers/Amenities/amenities.router';
+import bookingRouter from './routers/bookings/bookings.router';
 
 app.use('/hotel', hotelRouter);
 app.use('/room', roomRouter);
@@ -51,5 +52,6 @@ app.use('/house-keeping', houseKeepingRouter);
 app.use('/refresh', refreshRouter);
 app.use('/users', usersRouter);
 app.use('/amenity', amenityRouter);
+app.use('/booking', bookingRouter);
 
 export default app;
